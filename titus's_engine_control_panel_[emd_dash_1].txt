@@ -1,0 +1,857 @@
+@name Titus's Engine Control Panel [EMD Dash 1]
+@inputs IsolationSwitch HeadlightControlSwitch Prime Primed1 EngineStop GroundRelayReset
+@outputs Prime1 Start1 HeadlightMode
+@persist HasHeadlightSwitchLogic Detroit
+@trigger 
+@model
+ 
+E = entity()
+
+if(dupefinished()){ reset() }
+if(first()){
+    
+    # Config
+    HasHeadlightSwitchLogic = 1 #Do you want to have the logic? (Use a NON-Toggled button to select which mode you want).
+    Detroit = 0 # Remove cab start/fuel prime switches. (for Non Dash 2 645 Equipment) 
+    
+    # Holos
+    local BoltScale = vec(0.04,0.3,0.04)
+    local FixZfuck = 0.12
+
+    #---- Isolation Switch
+    
+    A = 1
+    holoCreate(A)
+    holoParent(A,E)
+    holoColor(A,vec(255))
+    holoScale(A,vec(1))
+    holoModel(A, "models/magtrainslocos/rotaryswitches/headlight_emd.mdl")
+    holoPos(A,E:toWorld(vec(10,5,-0.57)))
+    holoAng(A,E:toWorld(ang(0,0,0)))
+    holoEntity(A):setSubMaterial(1,"models/proppertextures/invisible")
+    
+    A = 26
+    Switch = 1
+    holoCreate(A)
+    holoParent(A,holoEntity(Switch))
+    holoColor(A,vec(255))
+    holoScale(A,BoltScale/1.25)
+    holoModel(A,"models/sprops/geometry/fhex_12.mdl")
+    holoMaterial(A,"models/proppertextures/aluminum")
+    holoPos(A,holoEntity(Switch):toWorld(vec(1,1,0)))
+    holoAng(A,holoEntity(Switch):toWorld(ang(0,0,90)))
+    
+    A = 27
+    Switch = 1
+    holoCreate(A)
+    holoParent(A,holoEntity(Switch))
+    holoColor(A,vec(255))
+    holoScale(A,BoltScale/1.25)
+    holoModel(A,"models/sprops/geometry/fhex_12.mdl")
+    holoMaterial(A,"models/proppertextures/aluminum")
+    holoPos(A,holoEntity(Switch):toWorld(vec(-1,1,0)))
+    holoAng(A,holoEntity(Switch):toWorld(ang(0,0,90)))
+    
+    A = 28
+    Switch = 1
+    holoCreate(A)
+    holoParent(A,holoEntity(Switch))
+    holoColor(A,vec(255))
+    holoScale(A,BoltScale/1.25)
+    holoModel(A,"models/sprops/geometry/fhex_12.mdl")
+    holoMaterial(A,"models/proppertextures/aluminum")
+    holoPos(A,holoEntity(Switch):toWorld(vec(1,-1,0)))
+    holoAng(A,holoEntity(Switch):toWorld(ang(0,0,90)))
+    
+    A = 29
+    Switch = 1
+    holoCreate(A)
+    holoParent(A,holoEntity(Switch))
+    holoColor(A,vec(255))
+    holoScale(A,BoltScale/1.25)
+    holoModel(A,"models/sprops/geometry/fhex_12.mdl")
+    holoMaterial(A,"models/proppertextures/aluminum")
+    holoPos(A,holoEntity(Switch):toWorld(vec(-1,-1,0)))
+    holoAng(A,holoEntity(Switch):toWorld(ang(0,0,90)))
+    
+    A = 30
+    Switch = 1
+    holoCreate(A)
+    holoParent(A,holoEntity(Switch))
+    holoColor(A,vec(255))
+    holoScale(A,vec(0.6))
+    holoModel(A,"plane")
+    holoMaterial(A,"titus/isolateswitch")
+    holoPos(A,holoEntity(Switch):toWorld(vec(0.5,0,0.28+FixZfuck)))
+    holoAng(A,holoEntity(Switch):toWorld(ang(0,0,0)))
+    
+    #---- Headlight Control Switch
+    
+    A = 2
+    holoCreate(A)
+    holoParent(A,E)
+    holoColor(A,vec(255))
+    holoScale(A,vec(1))
+    holoModel(A, "models/magtrainslocos/rotaryswitches/headlight_emd.mdl")
+    holoPos(A,E:toWorld(vec(0,5,-0.57)))
+    holoAng(A,E:toWorld(ang(0,0,0)))
+    holoEntity(A):setSubMaterial(1,"models/proppertextures/invisible")
+    
+    A = 31
+    Switch = 2
+    holoCreate(A)
+    holoParent(A,holoEntity(Switch))
+    holoColor(A,vec(255))
+    holoScale(A,BoltScale/1.25)
+    holoModel(A,"models/sprops/geometry/fhex_12.mdl")
+    holoMaterial(A,"models/proppertextures/aluminum")
+    holoPos(A,holoEntity(Switch):toWorld(vec(1,1,0)))
+    holoAng(A,holoEntity(Switch):toWorld(ang(0,0,90)))
+    
+    A = 32
+    Switch = 2
+    holoCreate(A)
+    holoParent(A,holoEntity(Switch))
+    holoColor(A,vec(255))
+    holoScale(A,BoltScale/1.25)
+    holoModel(A,"models/sprops/geometry/fhex_12.mdl")
+    holoMaterial(A,"models/proppertextures/aluminum")
+    holoPos(A,holoEntity(Switch):toWorld(vec(-1,1,0)))
+    holoAng(A,holoEntity(Switch):toWorld(ang(0,0,90)))
+    
+    A = 33
+    Switch = 2
+    holoCreate(A)
+    holoParent(A,holoEntity(Switch))
+    holoColor(A,vec(255))
+    holoScale(A,BoltScale/1.25)
+    holoModel(A,"models/sprops/geometry/fhex_12.mdl")
+    holoMaterial(A,"models/proppertextures/aluminum")
+    holoPos(A,holoEntity(Switch):toWorld(vec(1,-1,0)))
+    holoAng(A,holoEntity(Switch):toWorld(ang(0,0,90)))
+    
+    A = 34
+    Switch = 2
+    holoCreate(A)
+    holoParent(A,holoEntity(Switch))
+    holoColor(A,vec(255))
+    holoScale(A,BoltScale/1.25)
+    holoModel(A,"models/sprops/geometry/fhex_12.mdl")
+    holoMaterial(A,"models/proppertextures/aluminum")
+    holoPos(A,holoEntity(Switch):toWorld(vec(-1,-1,0)))
+    holoAng(A,holoEntity(Switch):toWorld(ang(0,0,90)))
+    
+    A = 35
+    Switch = 2
+    holoCreate(A)
+    holoParent(A,holoEntity(Switch))
+    holoColor(A,vec(255))
+    holoScale(A,vec(0.6))
+    holoModel(A,"plane")
+    holoMaterial(A,"titus/headlightcontrol2")
+    holoPos(A,holoEntity(Switch):toWorld(vec(0.5,0,0.28+FixZfuck)))
+    holoAng(A,holoEntity(Switch):toWorld(ang(0,0,0)))
+    
+    #---- Light Switches
+    
+    A = 3
+    holoCreate(A)
+    holoParent(A,E)
+    holoColor(A,vec(255))
+    holoScale(A,vec(0.7))
+    holoModel(A, "models/monkcabdetailpack/buttons/sliderswitch.mdl")
+    holoPos(A,E:toWorld(vec(4,0.5,-0.1)))
+    holoAng(A,E:toWorld(ang(0,0,0)))
+    holoEntity(A):setSubMaterial(2,"models/proppertextures/acrylic")
+    holoEntity(A):setSubMaterial(3,"models/proppertextures/acrylic_white")
+    
+    A = 36
+    Switch = 3
+    holoCreate(A)
+    holoParent(A,holoEntity(Switch))
+    holoColor(A,vec(255))
+    holoScale(A,BoltScale/1.3)
+    holoModel(A,"models/sprops/geometry/fhex_12.mdl")
+    holoMaterial(A,"models/proppertextures/aluminum")
+    holoPos(A,holoEntity(Switch):toWorld(vec(1.2,0,-0.3)))
+    holoAng(A,holoEntity(Switch):toWorld(ang(0,0,90)))
+    
+    A = 37
+    Switch = 3
+    holoCreate(A)
+    holoParent(A,holoEntity(Switch))
+    holoColor(A,vec(255))
+    holoScale(A,BoltScale/1.3)
+    holoModel(A,"models/sprops/geometry/fhex_12.mdl")
+    holoMaterial(A,"models/proppertextures/aluminum")
+    holoPos(A,holoEntity(Switch):toWorld(vec(-1.8,0,-0.3)))
+    holoAng(A,holoEntity(Switch):toWorld(ang(0,0,90)))
+
+    A = 38
+    Switch = 3
+    holoCreate(A)
+    holoParent(A,holoEntity(Switch))
+    holoColor(A,vec(255))
+    holoScale(A,vec(0.6))
+    holoModel(A,"plane")
+    holoMaterial(A,"titus/rear")
+    holoPos(A,holoEntity(Switch):toWorld(vec(-1.3,0,-0.1+FixZfuck)))
+    holoAng(A,holoEntity(Switch):toWorld(ang(0,0,0)))
+    
+    A = 4
+    holoCreate(A)
+    holoParent(A,E)
+    holoColor(A,vec(255))
+    holoScale(A,vec(0.7))
+    holoModel(A, "models/monkcabdetailpack/buttons/sliderswitch.mdl")
+    holoPos(A,E:toWorld(vec(4,-0.5,-0.1)))
+    holoAng(A,E:toWorld(ang(0,0,0)))
+    holoEntity(A):setSubMaterial(2,"models/proppertextures/acrylic")
+    holoEntity(A):setSubMaterial(3,"models/proppertextures/acrylic_white")
+
+    A = 39
+    Switch = 4
+    holoCreate(A)
+    holoParent(A,holoEntity(Switch))
+    holoColor(A,vec(255))
+    holoScale(A,BoltScale/1.3)
+    holoModel(A,"models/sprops/geometry/fhex_12.mdl")
+    holoMaterial(A,"models/proppertextures/aluminum")
+    holoPos(A,holoEntity(Switch):toWorld(vec(1.2,0,-0.3)))
+    holoAng(A,holoEntity(Switch):toWorld(ang(0,0,90)))
+    
+    A = 40
+    Switch = 4
+    holoCreate(A)
+    holoParent(A,holoEntity(Switch))
+    holoColor(A,vec(255))
+    holoScale(A,BoltScale/1.3)
+    holoModel(A,"models/sprops/geometry/fhex_12.mdl")
+    holoMaterial(A,"models/proppertextures/aluminum")
+    holoPos(A,holoEntity(Switch):toWorld(vec(-1.8,0,-0.3)))
+    holoAng(A,holoEntity(Switch):toWorld(ang(0,0,90)))
+
+    A = 41
+    Switch = 4
+    holoCreate(A)
+    holoParent(A,holoEntity(Switch))
+    holoColor(A,vec(255))
+    holoScale(A,vec(0.6))
+    holoModel(A,"plane")
+    holoMaterial(A,"titus/front")
+    holoPos(A,holoEntity(Switch):toWorld(vec(-1.3,0,-0.1+FixZfuck)))
+    holoAng(A,holoEntity(Switch):toWorld(ang(0,0,0)))
+    
+    A = 5
+    holoCreate(A)
+    holoParent(A,E)
+    holoColor(A,vec(255))
+    holoScale(A,vec(0.7))
+    holoModel(A, "models/monkcabdetailpack/buttons/sliderswitch.mdl")
+    holoPos(A,E:toWorld(vec(4,1.5,-0.1)))
+    holoAng(A,E:toWorld(ang(0,0,0)))
+    holoEntity(A):setSubMaterial(2,"models/proppertextures/acrylic")
+    holoEntity(A):setSubMaterial(3,"models/proppertextures/acrylic_white")
+
+    A = 42
+    Switch = 5
+    holoCreate(A)
+    holoParent(A,holoEntity(Switch))
+    holoColor(A,vec(255))
+    holoScale(A,BoltScale/1.3)
+    holoModel(A,"models/sprops/geometry/fhex_12.mdl")
+    holoMaterial(A,"models/proppertextures/aluminum")
+    holoPos(A,holoEntity(Switch):toWorld(vec(1.2,0,-0.3)))
+    holoAng(A,holoEntity(Switch):toWorld(ang(0,0,90)))
+    
+    A = 43
+    Switch = 5
+    holoCreate(A)
+    holoParent(A,holoEntity(Switch))
+    holoColor(A,vec(255))
+    holoScale(A,BoltScale/1.3)
+    holoModel(A,"models/sprops/geometry/fhex_12.mdl")
+    holoMaterial(A,"models/proppertextures/aluminum")
+    holoPos(A,holoEntity(Switch):toWorld(vec(-1.8,0,-0.3)))
+    holoAng(A,holoEntity(Switch):toWorld(ang(0,0,90)))
+
+    A = 44
+    Switch = 5
+    holoCreate(A)
+    holoParent(A,holoEntity(Switch))
+    holoColor(A,vec(255))
+    holoScale(A,vec(0.6))
+    holoModel(A,"plane")
+    holoMaterial(A,"titus/engroom")
+    holoPos(A,holoEntity(Switch):toWorld(vec(-1.3,0,-0.1+FixZfuck)))
+    holoAng(A,holoEntity(Switch):toWorld(ang(0,0,0)))
+        
+    A = 6
+    holoCreate(A)
+    holoParent(A,E)
+    holoColor(A,vec(255))
+    holoScale(A,vec(0.7))
+    holoModel(A, "models/monkcabdetailpack/buttons/sliderswitch.mdl")
+    holoPos(A,E:toWorld(vec(4,-1.5,-0.1)))
+    holoAng(A,E:toWorld(ang(0,0,0)))
+    holoEntity(A):setSubMaterial(2,"models/proppertextures/acrylic")
+    holoEntity(A):setSubMaterial(3,"models/proppertextures/acrylic_white")
+    
+    A = 45
+    Switch = 6
+    holoCreate(A)
+    holoParent(A,holoEntity(Switch))
+    holoColor(A,vec(255))
+    holoScale(A,BoltScale/1.3)
+    holoModel(A,"models/sprops/geometry/fhex_12.mdl")
+    holoMaterial(A,"models/proppertextures/aluminum")
+    holoPos(A,holoEntity(Switch):toWorld(vec(1.2,0,-0.3)))
+    holoAng(A,holoEntity(Switch):toWorld(ang(0,0,90)))
+    
+    A = 46
+    Switch = 6
+    holoCreate(A)
+    holoParent(A,holoEntity(Switch))
+    holoColor(A,vec(255))
+    holoScale(A,BoltScale/1.3)
+    holoModel(A,"models/sprops/geometry/fhex_12.mdl")
+    holoMaterial(A,"models/proppertextures/aluminum")
+    holoPos(A,holoEntity(Switch):toWorld(vec(-1.8,0,-0.3)))
+    holoAng(A,holoEntity(Switch):toWorld(ang(0,0,90)))
+
+    A = 47
+    Switch = 6
+    holoCreate(A)
+    holoParent(A,holoEntity(Switch))
+    holoColor(A,vec(255))
+    holoScale(A,vec(0.6))
+    holoModel(A,"plane")
+    holoMaterial(A,"titus/rear")
+    holoPos(A,holoEntity(Switch):toWorld(vec(-1.3,0,-0.1+FixZfuck)))
+    holoAng(A,holoEntity(Switch):toWorld(ang(0,0,0)))
+
+    A = 7
+    holoCreate(A)
+    holoParent(A,E)
+    holoColor(A,vec(255))
+    holoScale(A,vec(0.7))
+    holoModel(A, "models/monkcabdetailpack/buttons/sliderswitch.mdl")
+    holoPos(A,E:toWorld(vec(4,2.5,-0.1)))
+    holoAng(A,E:toWorld(ang(0,0,0)))
+    holoEntity(A):setSubMaterial(2,"models/proppertextures/acrylic")
+    holoEntity(A):setSubMaterial(3,"models/proppertextures/acrylic_white")
+
+    A = 48
+    Switch = 7
+    holoCreate(A)
+    holoParent(A,holoEntity(Switch))
+    holoColor(A,vec(255))
+    holoScale(A,BoltScale/1.3)
+    holoModel(A,"models/sprops/geometry/fhex_12.mdl")
+    holoMaterial(A,"models/proppertextures/aluminum")
+    holoPos(A,holoEntity(Switch):toWorld(vec(1.2,0,-0.3)))
+    holoAng(A,holoEntity(Switch):toWorld(ang(0,0,90)))
+    
+    A = 49
+    Switch = 7
+    holoCreate(A)
+    holoParent(A,holoEntity(Switch))
+    holoColor(A,vec(255))
+    holoScale(A,BoltScale/1.3)
+    holoModel(A,"models/sprops/geometry/fhex_12.mdl")
+    holoMaterial(A,"models/proppertextures/aluminum")
+    holoPos(A,holoEntity(Switch):toWorld(vec(-1.8,0,-0.3)))
+    holoAng(A,holoEntity(Switch):toWorld(ang(0,0,90)))
+
+    A = 50
+    Switch = 7
+    holoCreate(A)
+    holoParent(A,holoEntity(Switch))
+    holoColor(A,vec(255))
+    holoScale(A,vec(0.6))
+    holoModel(A,"plane")
+    holoMaterial(A,"titus/platform")
+    holoPos(A,holoEntity(Switch):toWorld(vec(-1.3,0,-0.1+FixZfuck)))
+    holoAng(A,holoEntity(Switch):toWorld(ang(0,0,0)))
+        
+    A = 8
+    holoCreate(A)
+    holoParent(A,E)
+    holoColor(A,vec(255))
+    holoScale(A,vec(0.7))
+    holoModel(A, "models/monkcabdetailpack/buttons/sliderswitch.mdl")
+    holoPos(A,E:toWorld(vec(4,-2.5,-0.1)))
+    holoAng(A,E:toWorld(ang(0,0,0)))
+    holoEntity(A):setSubMaterial(2,"models/proppertextures/acrylic")
+    holoEntity(A):setSubMaterial(3,"models/proppertextures/acrylic_white")
+
+    A = 51
+    Switch = 8
+    holoCreate(A)
+    holoParent(A,holoEntity(Switch))
+    holoColor(A,vec(255))
+    holoScale(A,BoltScale/1.3)
+    holoModel(A,"models/sprops/geometry/fhex_12.mdl")
+    holoMaterial(A,"models/proppertextures/aluminum")
+    holoPos(A,holoEntity(Switch):toWorld(vec(1.2,0,-0.3)))
+    holoAng(A,holoEntity(Switch):toWorld(ang(0,0,90)))
+    
+    A = 52
+    Switch = 8
+    holoCreate(A)
+    holoParent(A,holoEntity(Switch))
+    holoColor(A,vec(255))
+    holoScale(A,BoltScale/1.3)
+    holoModel(A,"models/sprops/geometry/fhex_12.mdl")
+    holoMaterial(A,"models/proppertextures/aluminum")
+    holoPos(A,holoEntity(Switch):toWorld(vec(-1.8,0,-0.3)))
+    holoAng(A,holoEntity(Switch):toWorld(ang(0,0,90)))
+
+    A = 53
+    Switch = 8
+    holoCreate(A)
+    holoParent(A,holoEntity(Switch))
+    holoColor(A,vec(255))
+    holoScale(A,vec(0.6))
+    holoModel(A,"plane")
+    holoMaterial(A,"titus/front")
+    holoPos(A,holoEntity(Switch):toWorld(vec(-1.3,0,-0.1+FixZfuck)))
+    holoAng(A,holoEntity(Switch):toWorld(ang(0,0,0)))
+    
+    A = 54
+    holoCreate(A)
+    holoParent(A,E)
+    holoColor(A,vec(255))
+    holoScale(A,vec(0.6))
+    holoModel(A,"plane")
+    holoMaterial(A,"titus/classlts")
+    holoPos(A,E:toWorld(vec(1.7,0,-0.2)))
+    holoAng(A,E:toWorld(ang(0,0,0)))
+    
+    A = 55
+    holoCreate(A)
+    holoParent(A,E)
+    holoColor(A,vec(255))
+    holoScale(A,vec(0.6))
+    holoModel(A,"plane")
+    holoMaterial(A,"titus/nolights")
+    holoPos(A,E:toWorld(vec(1.7,-2,-0.2)))
+    holoAng(A,E:toWorld(ang(0,0,0)))
+    
+    A = 56
+    holoCreate(A)
+    holoParent(A,E)
+    holoColor(A,vec(255))
+    holoScale(A,vec(0.6))
+    holoModel(A,"plane")
+    holoMaterial(A,"titus/lights")
+    holoPos(A,E:toWorld(vec(1.7,2,-0.2)))
+    holoAng(A,E:toWorld(ang(0,0,0)))
+        
+    #---- Engine Stop Button
+    
+    A = 12
+    holoCreate(A)
+    holoParent(A,E)
+    holoColor(A,vec(150,50,50))
+    holoScale(A,vec(1.8,1.8,2.5))
+    holoModel(A, "models/titus's_propper_model_pack_2.4/propper/buttons/pushbutton.mdl")
+    holoPos(A,E:toWorld(vec(9.5,0,-0.3)))
+    holoAng(A,E:toWorld(ang(0,0,0)))
+    holoEntity(A):setSubMaterial(2,"models/proppertextures/aluminum")
+    holoEntity(A):setSubMaterial(3,"models/proppertextures/acrylic")
+    
+    A = 57
+    Switch = 12
+    holoCreate(A)
+    holoParent(A,holoEntity(Switch))
+    holoColor(A,vec(255))
+    holoScale(A,vec(0.6))
+    holoModel(A,"plane")
+    holoMaterial(A,"titus/enginestop")
+    holoPos(A,holoEntity(Switch):toWorld(vec(1.3,0,-0.05+FixZfuck)))
+    holoAng(A,holoEntity(Switch):toWorld(ang(0,0,0)))
+    
+    #---- Ground Relay Reset Switch
+
+    A = 13
+    holoCreate(A)
+    holoParent(A,E)
+    holoColor(A,vec(35))
+    holoScale(A,vec(1.8,1.8,2.5))
+    holoModel(A, "models/titus's_propper_model_pack_2.4/propper/buttons/pushbutton.mdl")
+    holoPos(A,E:toWorld(vec(9.5,2.1,-0.3)))
+    holoAng(A,E:toWorld(ang(0,0,0)))
+    holoEntity(A):setSubMaterial(2,"models/proppertextures/aluminum")
+    holoEntity(A):setSubMaterial(3,"models/proppertextures/acrylic")
+    
+    A = 58
+    Switch = 13
+    holoCreate(A)
+    holoParent(A,holoEntity(Switch))
+    holoColor(A,vec(255))
+    holoScale(A,vec(0.6))
+    holoModel(A,"plane")
+    holoMaterial(A,"titus/groundreset")
+    holoPos(A,holoEntity(Switch):toWorld(vec(1.3,0,-0.05+FixZfuck)))
+    holoAng(A,holoEntity(Switch):toWorld(ang(0,0,0)))
+    
+    #---- Power Supply Communication & Cab Signal
+    
+    A = 14
+    holoCreate(A)
+    holoParent(A,E)
+    holoColor(A,vec(255))
+    holoScale(A,vec(1))
+    holoModel(A, "models/titus's_propper_model_pack_2.4/propper/circuitbreakers/breaker_large.mdl")
+    holoPos(A,E:toWorld(vec(9.5,-6,-0.9)))
+    holoAng(A,E:toWorld(ang(0,90,90)))
+    
+    A = 59
+    Switch = 14
+    holoCreate(A)
+    holoParent(A,holoEntity(Switch))
+    holoColor(A,vec(255))
+    holoScale(A,vec(0.6))
+    holoModel(A,"plane")
+    holoMaterial(A,"titus/powersupplycommunicationandcabsignal")
+    holoPos(A,holoEntity(Switch):toWorld(vec(0,0.65+FixZfuck,2.8)))
+    holoAng(A,holoEntity(Switch):toWorld(ang(-90,90,180)))
+    
+    #---- Hot Engine Lamp
+    
+    A = 15
+    holoCreate(A)
+    holoParent(A,E)
+    holoColor(A,vec(255))
+    holoScale(A,vec(1,1,1.5)*1.25)
+    holoModel(A,"models/titus's_propper_model_pack_2.4/propper/buttons/pushbutton.mdl")
+    holoPos(A,E:toWorld(vec(-8,2,-0.35)))
+    holoAng(A,E:toWorld(ang(0,0,0)))
+    holoEntity(A):setSubMaterial(2,"models/proppertextures/aluminum")
+    holoEntity(A):setSubMaterial(3,"models/proppertextures/aluminum")
+    
+    A = 62
+    Switch = 15
+    holoCreate(A)
+    holoParent(A,holoEntity(Switch))
+    holoColor(A,vec(255))
+    holoScale(A,vec(0.0575)*1.25)
+    holoModel(A,"models/holograms/sphere.mdl")
+    holoMaterial(A,"models/proppertextures/bulb_orange_unlit")
+    holoPos(A,holoEntity(Switch):toWorld(vec(0,0,0.52)*1.25))
+    holoAng(A,holoEntity(Switch):toWorld(ang(0,0,0)))
+    
+    A = 63
+    Switch = 15
+    holoCreate(A)
+    holoParent(A,holoEntity(Switch))
+    holoColor(A,vec(255))
+    holoScale(A,vec(0.6)*1.25)
+    holoModel(A,"plane")
+    holoMaterial(A,"titus/hoteng")
+    holoPos(A,holoEntity(Switch):toWorld(vec(-1.1,0,0.03+FixZfuck)*1.25))
+    holoAng(A,holoEntity(Switch):toWorld(ang(0,0,0)))
+    
+    #---- No Battery Charge Lamp
+    
+    A = 16
+    holoCreate(A)
+    holoParent(A,E)
+    holoColor(A,vec(255))
+    holoScale(A,vec(1,1,1.5)*1.25)
+    holoModel(A,"models/titus's_propper_model_pack_2.4/propper/buttons/pushbutton.mdl")
+    holoPos(A,E:toWorld(vec(-8,-2,-0.35)))
+    holoAng(A,E:toWorld(ang(0,0,0)))
+    holoEntity(A):setSubMaterial(2,"models/proppertextures/aluminum")
+    holoEntity(A):setSubMaterial(3,"models/proppertextures/aluminum")
+    
+    A = 64
+    Switch = 16
+    holoCreate(A)
+    holoParent(A,holoEntity(Switch))
+    holoColor(A,vec(255))
+    holoScale(A,vec(0.0575)*1.25)
+    holoModel(A,"models/holograms/sphere.mdl")
+    holoMaterial(A,"models/proppertextures/bulb_red_unlit")
+    holoPos(A,holoEntity(Switch):toWorld(vec(0,0,0.52)*1.25))
+    holoAng(A,holoEntity(Switch):toWorld(ang(0,0,0)))
+    
+    A = 65
+    Switch = 16
+    holoCreate(A)
+    holoParent(A,holoEntity(Switch))
+    holoColor(A,vec(255))
+    holoScale(A,vec(0.6)*1.25)
+    holoModel(A,"plane")
+    holoMaterial(A,"titus/nobatterycharge")
+    holoPos(A,holoEntity(Switch):toWorld(vec(-1.1,0,0.03+FixZfuck)*1.25))
+    holoAng(A,holoEntity(Switch):toWorld(ang(0,0,0)))
+    
+    #---- No Power
+    
+    A = 17
+    holoCreate(A)
+    holoParent(A,E)
+    holoColor(A,vec(255))
+    holoScale(A,vec(1,1,1.5)*1.25)
+    holoModel(A,"models/titus's_propper_model_pack_2.4/propper/buttons/pushbutton.mdl")
+    holoPos(A,E:toWorld(vec(-8,4,-0.35)))
+    holoAng(A,E:toWorld(ang(0,0,0)))
+    holoEntity(A):setSubMaterial(2,"models/proppertextures/aluminum")
+    holoEntity(A):setSubMaterial(3,"models/proppertextures/aluminum")
+    
+    A = 66
+    Switch = 17
+    holoCreate(A)
+    holoParent(A,holoEntity(Switch))
+    holoColor(A,vec(255))
+    holoScale(A,vec(0.0575)*1.25)
+    holoModel(A,"models/holograms/sphere.mdl")
+    holoMaterial(A,"models/proppertextures/bulb_offwhite_unlit")
+    holoPos(A,holoEntity(Switch):toWorld(vec(0,0,0.52)*1.25))
+    holoAng(A,holoEntity(Switch):toWorld(ang(0,0,0)))
+    
+    A = 67
+    Switch = 17
+    holoCreate(A)
+    holoParent(A,holoEntity(Switch))
+    holoColor(A,vec(255))
+    holoScale(A,vec(0.6)*1.25)
+    holoModel(A,"plane")
+    holoMaterial(A,"titus/nopower")
+    holoPos(A,holoEntity(Switch):toWorld(vec(1.1,0,0.03+FixZfuck)*1.25))
+    holoAng(A,holoEntity(Switch):toWorld(ang(0,0,0)))
+    
+    #---- Ground Relay Tripped (GR'D REL. TRIPPED)
+    
+    A = 18
+    holoCreate(A)
+    holoParent(A,E)
+    holoColor(A,vec(255))
+    holoScale(A,vec(1,1,1.5)*1.25)
+    holoModel(A,"models/titus's_propper_model_pack_2.4/propper/buttons/pushbutton.mdl")
+    holoPos(A,E:toWorld(vec(-8,-4,-0.35)))
+    holoAng(A,E:toWorld(ang(0,0,0)))
+    holoEntity(A):setSubMaterial(2,"models/proppertextures/aluminum")
+    holoEntity(A):setSubMaterial(3,"models/proppertextures/aluminum")
+    
+    A = 68
+    Switch = 18
+    holoCreate(A)
+    holoParent(A,holoEntity(Switch))
+    holoColor(A,vec(255))
+    holoScale(A,vec(0.0575)*1.25)
+    holoModel(A,"models/holograms/sphere.mdl")
+    holoMaterial(A,"models/proppertextures/bulb_red_unlit")
+    holoPos(A,holoEntity(Switch):toWorld(vec(0,0,0.52)*1.25))
+    holoAng(A,holoEntity(Switch):toWorld(ang(0,0,0)))
+    
+    A = 69
+    Switch = 18
+    holoCreate(A)
+    holoParent(A,holoEntity(Switch))
+    holoColor(A,vec(255))
+    holoScale(A,vec(0.6)*1.25)
+    holoModel(A,"plane")
+    holoMaterial(A,"titus/grdreltripped")
+    holoPos(A,holoEntity(Switch):toWorld(vec(1.1,0,0.03+FixZfuck)*1.25))
+    holoAng(A,holoEntity(Switch):toWorld(ang(0,0,0)))
+
+    #---- Low Oil Or Low Water
+    
+    A = 19
+    holoCreate(A)
+    holoParent(A,E)
+    holoColor(A,vec(255))
+    holoScale(A,vec(1,1,1.5)*1.25)
+    holoModel(A,"models/titus's_propper_model_pack_2.4/propper/buttons/pushbutton.mdl")
+    holoPos(A,E:toWorld(vec(-8,6,-0.35)))
+    holoAng(A,E:toWorld(ang(0,0,0)))
+    holoEntity(A):setSubMaterial(2,"models/proppertextures/aluminum")
+    holoEntity(A):setSubMaterial(3,"models/proppertextures/aluminum")
+    
+    A = 70
+    Switch = 19
+    holoCreate(A)
+    holoParent(A,holoEntity(Switch))
+    holoColor(A,vec(255))
+    holoScale(A,vec(0.0575)*1.25)
+    holoModel(A,"models/holograms/sphere.mdl")
+    holoMaterial(A,"models/proppertextures/bulb_red_unlit")
+    holoPos(A,holoEntity(Switch):toWorld(vec(0,0,0.52)*1.25))
+    holoAng(A,holoEntity(Switch):toWorld(ang(0,0,0)))
+    
+    A = 71
+    Switch = 19
+    holoCreate(A)
+    holoParent(A,holoEntity(Switch))
+    holoColor(A,vec(255))
+    holoScale(A,vec(0.6)*1.25)
+    holoModel(A,"plane")
+    holoMaterial(A,"titus/lowoilor")
+    holoPos(A,holoEntity(Switch):toWorld(vec(-1.1,0,0.03+FixZfuck)*1.25))
+    holoAng(A,holoEntity(Switch):toWorld(ang(0,0,0)))
+    
+    A = 72
+    Switch = 19
+    holoCreate(A)
+    holoParent(A,holoEntity(Switch))
+    holoColor(A,vec(255))
+    holoScale(A,vec(0.6)*1.25)
+    holoModel(A,"plane")
+    holoMaterial(A,"titus/lowwater")
+    holoPos(A,holoEntity(Switch):toWorld(vec(1.1,0,0.03+FixZfuck)*1.25))
+    holoAng(A,holoEntity(Switch):toWorld(ang(0,0,0)))
+    
+    #---- Turbocharger Aux Pump
+
+    A = 20
+    holoCreate(A)
+    holoParent(A,E)
+    holoColor(A,vec(255))
+    holoScale(A,vec(1,1,1.5)*1.25)
+    holoModel(A,"models/titus's_propper_model_pack_2.4/propper/buttons/pushbutton.mdl")
+    holoPos(A,E:toWorld(vec(-8,-6,-0.35)))
+    holoAng(A,E:toWorld(ang(0,0,0)))
+    holoEntity(A):setSubMaterial(2,"models/proppertextures/aluminum")
+    holoEntity(A):setSubMaterial(3,"models/proppertextures/aluminum")
+    
+    A = 73
+    Switch = 20
+    holoCreate(A)
+    holoParent(A,holoEntity(Switch))
+    holoColor(A,vec(255))
+    holoScale(A,vec(0.0575)*1.25)
+    holoModel(A,"models/holograms/sphere.mdl")
+    holoMaterial(A,"models/proppertextures/bulb_offwhite_unlit")
+    holoPos(A,holoEntity(Switch):toWorld(vec(0,0,0.52)*1.25))
+    holoAng(A,holoEntity(Switch):toWorld(ang(0,0,0)))
+    
+    A = 74
+    Switch = 20
+    holoCreate(A)
+    holoParent(A,holoEntity(Switch))
+    holoColor(A,vec(255))
+    holoScale(A,vec(0.6)*1.25)
+    holoModel(A,"plane")
+    holoMaterial(A,"titus/turbochargerauxpump")
+    holoPos(A,holoEntity(Switch):toWorld(vec(-1.1,0,0.03+FixZfuck)*1.25))
+    holoAng(A,holoEntity(Switch):toWorld(ang(0,0,0)))
+    
+    #---- Water Cooler
+    
+    A = 21
+    holoCreate(A)
+    holoParent(A,E)
+    holoColor(A,vec(255))
+    holoScale(A,vec(1))
+    holoModel(A, "models/monkcabdetailpack/buttons/sliderswitch.mdl")
+    holoPos(A,E:toWorld(vec(-1,-1,-0.1)))
+    holoAng(A,E:toWorld(ang(0,0,0)))
+    holoEntity(A):setSubMaterial(1,"models/proppertextures/rubber")
+    holoEntity(A):setSubMaterial(2,"models/proppertextures/rubber")
+    holoEntity(A):setSubMaterial(3,"models/proppertextures/rubber")
+    
+    #---- Hopper Heater
+    
+    A = 22
+    holoCreate(A)
+    holoParent(A,E)
+    holoColor(A,vec(255))
+    holoScale(A,vec(1))
+    holoModel(A, "models/monkcabdetailpack/buttons/sliderswitch.mdl")
+    holoPos(A,E:toWorld(vec(-1,0,-0.1)))
+    holoAng(A,E:toWorld(ang(0,0,0)))
+    holoEntity(A):setSubMaterial(1,"models/proppertextures/rubber")
+    holoEntity(A):setSubMaterial(2,"models/proppertextures/rubber")
+    holoEntity(A):setSubMaterial(3,"models/proppertextures/rubber")
+
+    A = 23
+    holoCreate(A)
+    holoParent(A,E)
+    holoColor(A,vec(255))
+    holoScale(A,vec(1))
+    holoModel(A, "models/monkcabdetailpack/buttons/sliderswitch.mdl")
+    holoPos(A,E:toWorld(vec(-1,1,-0.1)))
+    holoAng(A,E:toWorld(ang(0,0,0)))
+    holoEntity(A):setSubMaterial(1,"models/proppertextures/rubber")
+    holoEntity(A):setSubMaterial(2,"models/proppertextures/rubber")
+    holoEntity(A):setSubMaterial(3,"models/proppertextures/rubber")
+    
+    #---- Prime / Engine Start Switch
+    
+    if(!Detroit){
+            
+        A = 24
+        holoCreate(A)
+        holoParent(A,E)
+        holoColor(A,vec(255))
+        holoScale(A,vec(0.7))
+        holoModel(A, "models/monkcabdetailpack/misc/pushbuttonbig.mdl")
+        holoPos(A,E:toWorld(vec(9.5,-2.1,-0.5)))
+        holoAng(A,E:toWorld(ang(0,0,0)))
+        holoEntity(A):setSubMaterial(1,"models/proppertextures/aluminum")
+        holoEntity(A):setSubMaterial(2,"models/proppertextures/plastic_black")
+        
+        A = 25
+        holoCreate(A)
+        holoParent(A,E)
+        holoColor(A,vec(255))
+        holoScale(A,vec(1.15))
+        holoModel(A, "models/flak/part/misc/startswitch.mdl")
+        holoPos(A,E:toWorld(vec(9.5,-2.1,-0.4)))
+        holoAng(A,E:toWorld(ang(0,-90,90)))
+        holoEntity(A):setSubMaterial(1,"models/proppertextures/plastic_black")
+        
+        A = 60
+        Switch = 24
+        holoCreate(A)
+        holoParent(A,holoEntity(Switch))
+        holoColor(A,vec(255))
+        holoScale(A,vec(0.6))
+        holoModel(A,"plane")
+        holoMaterial(A,"titus/enginestart")
+        holoPos(A,holoEntity(Switch):toWorld(vec(-1.3,0.8,0.2+FixZfuck)))
+        holoAng(A,holoEntity(Switch):toWorld(ang(0,0,0)))
+        
+        A = 61
+        Switch = 24
+        holoCreate(A)
+        holoParent(A,holoEntity(Switch))
+        holoColor(A,vec(255))
+        holoScale(A,vec(0.6))
+        holoModel(A,"plane")
+        holoMaterial(A,"titus/fuelprime")
+        holoPos(A,holoEntity(Switch):toWorld(vec(-1.3,-0.8,0.2+FixZfuck)))
+        holoAng(A,holoEntity(Switch):toWorld(ang(0,0,0)))
+        
+    }
+    
+    
+}
+
+if(!Detroit){
+    if(Prime){
+        Prime1 = 1
+    }
+    elseif(!Prime){
+        Prime1 = 0
+        Start1 = 0
+        EngineStart = 0
+    }
+    
+    if(Primed1){
+        Prime1 = 0
+        Start1 = Prime  
+        EngineStart = Prime
+    }
+}
+
+holoBodygroup(1,1,2-IsolationSwitch*2)
+holoBodygroup(2,1,HeadlightControlSwitch*2)
+holoBodygroup(12,1,EngineStop)
+holoBodygroup(13,1,GroundRelayReset)
+
+holoAng(25,E:toWorld(ang(0,-90+(Prime*45 - EngineStart*45*2),90)))
+
