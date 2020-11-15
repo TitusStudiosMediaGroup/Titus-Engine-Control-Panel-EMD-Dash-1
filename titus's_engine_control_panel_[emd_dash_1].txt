@@ -848,8 +848,20 @@ if(!Detroit){
     }
 }
 
+if(!HasHeadlightSwitchLogic){
+    holoBodygroup(2,1,HeadlightControlSwitch*2)
+}
+else{
+    if(HeadlightControlSwitch & HeadlightMode<4){
+        HeadlightMode+=1    
+    }
+    if(HeadlightControlSwitch & HeadlightMode>=4){
+        HeadlightMode = 0 
+    }
+    holoBodygroup(2,1,HeadlightMode*2)
+}
+
 holoBodygroup(1,1,2-IsolationSwitch*2)
-holoBodygroup(2,1,HeadlightControlSwitch*2)
 holoBodygroup(12,1,EngineStop)
 holoBodygroup(13,1,GroundRelayReset)
 
